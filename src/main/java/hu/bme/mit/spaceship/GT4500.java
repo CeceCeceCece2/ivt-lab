@@ -85,11 +85,10 @@ public class GT4500 implements SpaceShip {
         while(!secondaryTorpedoStore.isEmpty()) {
           firingSuccess = secondaryTorpedoStore.fire(1);
         }
-        //================================
+        
         for(int i=0; i< 30; i++)
           System.out.println("Branch-A");
-        //================================
-
+        
         break;
     }
 
