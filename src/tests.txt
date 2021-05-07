@@ -1,0 +1,19 @@
+Test cases:
+    1. fire 3 rockets with SINGLE firing mode 
+        Expected result: two fired from primary, one from secondary
+    2. try to fire 4 rockets, but the secondary store only contains 1
+        Expected result: 3 fired from primary, only one from secondary
+    3. try to fire 3 rockets, but the second firing results in a failure
+        Expected result: only 2 is fired
+
+    4. fire only one rocket
+        Expected result: one from primary store 
+        (Already implemented)
+    5. fire all rockets when stores contain each 3
+        Expected result: 3 fired from each store
+        (Already implemented)
+
+    6. fire all rockets when primary contains 3, secondary contains 7 rockets
+        Expected result: 3 shots from primary, 7 from secondary
+    7. fire all rockets when primary contains 3, secondary contains 7 rockets, but the 6th rocket fails
+        Expected result: fire 3 + 6 rockets
