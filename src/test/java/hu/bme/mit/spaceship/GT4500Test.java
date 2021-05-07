@@ -150,4 +150,64 @@ public class GT4500Test {
     assertEquals(true, result);
   }
 
+  @Test
+  public void fireTorpedos4_Single_FirstContainsOnly1(){
+    // Arrange
+    when(mockedTS2.fire(1)).thenReturn(true);
+    when(mockedTS1.fire(1)).thenReturn(true, false);
+
+    when(mockedTS2.isEmpty()).thenReturn(false);
+    when(mockedTS1.isEmpty()).thenReturn(false, true);
+    // Act
+    boolean result1 = ship.fireTorpedo(FiringMode.SINGLE);
+    boolean result2 = ship.fireTorpedo(FiringMode.SINGLE);
+    boolean result3 = ship.fireTorpedo(FiringMode.SINGLE);
+    boolean result4 = ship.fireTorpedo(FiringMode.SINGLE);
+
+    // Assert
+    assertEquals(true, result1);
+    assertEquals(true, result2);
+    assertEquals(true, result3);
+    assertEquals(true, result4);
+    verify(mockedTS2, times(3)).fire(1);
+    verify(mockedTS1, times(1)).fire(1);
+  }
+
+  @Test
+  public void fireTorpedos_when_stores_are_empty(){
+    // Arrange
+    when(mockedTS1.fire(1)).thenReturn(true);
+    when(mockedTS2.fire(1)).thenReturn(true);
+
+    when(mockedTS2.isEmpty()).thenReturn(true);
+    when(mockedTS1.isEmpty()).thenReturn(true);
+    // Act
+    boolean result1 = ship.fireTorpedo(FiringMode.SINGLE);
+    // Assert
+    assertEquals(false, result1);
+   
+    verify(mockedTS1, times(0)).fire(1);
+    verify(mockedTS2, times(0)).fire(1);
+  }
+
+
+  @Test
+  public void fireTorpedos_when_secondary_is_empty(){
+    // Arrange
+    when(mockedTS1.fire(1)).thenReturn(true);
+    when(mockedTS2.fire(1)).thenReturn(true);
+
+    when(mockedTS2.isEmpty()).thenReturn(true);
+    when(mockedTS1.isEmpty()).thenReturn(false, true);
+    // Act
+    boolean result1 = ship.fireTorpedo(FiringMode.SINGLE);
+    boolean result2 = ship.fireTorpedo(FiringMode.SINGLE);
+    // Assert
+    assertEquals(true, result1);
+    assertEquals(false, result2);
+   
+    verify(mockedTS1, times(1)).fire(1);
+    verify(mockedTS2, times(0)).fire(1);
+  }
+
 }
